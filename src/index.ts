@@ -1,7 +1,7 @@
-import noLiteral from './rules/no-literal'
+import noOldImports from './rules/no-old-imports'
 
 export = {
   rules: {
-    'no-literal': noLiteral,
+    'no-old-library-imports': noOldImports,
   },
 }
