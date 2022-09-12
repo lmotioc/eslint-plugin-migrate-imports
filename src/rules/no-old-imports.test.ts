@@ -9,15 +9,25 @@ tester.run('no-old-library-imports', rule, {
   invalid: [
     {
       code: "import {Button} from 'oldLibrary'",
-      errors: [{ message: '😿' }],
+      errors: [{messageId: 'noOldLibs'}],
+      output: "import {Button} from 'newLibrary'",
     },
     {
       code: "import {Button, Modal} from 'oldLibrary'",
-      errors: [{ message: '😿' }],
+      output: "import {Button} from 'newLibrary'\nimport {Modal} from 'newLibrary'",
+      errors: [{messageId: 'noOldLibs'}],
     },
     {
       code: "import {Button} from 'theOtherOldLibrary'",
-      errors: [{ message: '😿' }],
+      output: "import {Button} from 'newLibrary'",
+      errors: [{messageId: 'noOldLibs'}],
     }
   ],
 })
+
+// import { Button, Stepper } from 'common-libraries/components/complystation';
+// import { EntityContext, DetailContext } from 'common-libraries/components/appsettings';
+// import { Popover, Badge } from 'common-libraries/components/mui';
+
+// import { RemoveIcon, Typography } from 'common-libraries/styles';
+// import { GeneralHelper, useList } from 'common-libraries/system';
