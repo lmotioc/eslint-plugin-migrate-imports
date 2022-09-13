@@ -21,9 +21,8 @@ const rule: Rule.RuleModule = {
             fixer.replaceText(
               node, 
               node.specifiers
-              //.filter(specifier  => specifier.type === 'ImportSpecifier' )
+              .filter(specifier  => specifier.type === 'ImportSpecifier' )
               .map(specifier => {
-                console.log(specifier)
                 return `import {${specifier.local.name}} from '${newLibrary}'`}
                 )
               .join('\n')
