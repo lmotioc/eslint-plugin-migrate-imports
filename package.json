@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-migrate-imports",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A custom eslint plugin to help you migrate your project using a library after refatoring / changing module scturcture",
   "main": "lib/index.js",
   "scripts": {
