@@ -1,7 +1,7 @@
 {
-  "name": "eslint-playground",
+  "name": "eslint-plugin-migrate-imports",
   "version": "0.0.1",
-  "description": "A playground repository to create eslint rules",
+  "description": "A custom eslint plugin to help you migrate your project using a library after refatoring / changing module scturcture",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -22,10 +22,7 @@
     "typescript",
     "playground"
   ],
-  "author": "Barnabas Jovanovics",
-  "contributors": [
-    "Stefan Natter"
-  ],
+  "author": "Lala Portocala",
   "license": "MIT",
   "devDependencies": {
     "@types/eslint": "7.2.6",
@@ -64,5 +61,13 @@
       "ts",
       "json"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmotioc/eslint-plugin-migrate-imports.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lmotioc/eslint-plugin-migrate-imports/issues"
+  },
+  "homepage": "https://github.com/lmotioc/eslint-plugin-migrate-imports#readme"
 }
