@@ -1,6 +1,5 @@
 import { Rule } from 'eslint'
 
-const excludedLibraries = ['oldLibrary', 'theOtherOldLibrary'];
 const newLibrary = 'newLibrary';
 
 const rule: Rule.RuleModule = {
@@ -11,14 +10,17 @@ const rule: Rule.RuleModule = {
     fixable: 'code',
   },
   create: context => {
+    
     return {
       ImportDeclaration: node => {
-        if(excludedLibraries.some(e=> e === node.source.value))
+        if(!context.options[0] || !context.options[0].oldLibs) return;
+        const excludedLibraries = context.options[0].oldLibs;
+        if(excludedLibraries.some((e: string) => e === node.source.value))
         context.report({
           messageId: 'noOldLibs',
           node,
-          fix: fixer => 
-            fixer.replaceText(
+          fix: fixer => {
+            return fixer.replaceText(
               node, 
               node.specifiers
               .filter(specifier  => specifier.type === 'ImportSpecifier' )
@@ -26,7 +28,7 @@ const rule: Rule.RuleModule = {
                 return `import {${specifier.local.name}} from '${newLibrary}'`}
                 )
               .join('\n')
-            ),
+            )}
         })
       },
     }
