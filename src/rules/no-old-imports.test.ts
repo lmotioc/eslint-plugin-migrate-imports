@@ -3,9 +3,13 @@ import rule from './no-old-imports'
 
 const options =  [{
   "oldLibs": ["LibA", "LibB"],
-  "newLibs": {
-    "frontend-libraires": []
-  }
+  "newLibs": [
+    {key: 'new-libraries/components/complystation', values: ['Button', 'Stepper']},
+    {key: 'new-libraries/components/appsettings', values: ['EntityContext', 'DetailContext']},
+    {key: 'new-libraries/components/mui', values: ['Popover', 'Badge']},
+    {key: 'new-libraries/styles', values: ['RemoveIcon', 'Typography']},
+    {key: 'new-libraries/system', values: ['GeneralHelper', 'useList']}
+  ]
 }]
 
 const tester = new RuleTester({ parserOptions: { ecmaVersion: 2015 , sourceType: 'module'}} )
@@ -22,27 +26,26 @@ tester.run('no-old-library-imports', rule, {
     {
       code: "import {Button} from 'LibB'",
       errors: [{messageId: 'noOldLibs'}],
-      output: "import {Button} from 'newLibrary'",
+      output: "import {Button} from 'new-libraries/components/complystation';",
       options: options
     },
     {
-      code: "import {Button, Modal} from 'oldLibrary'",
-      output: "import {Button} from 'newLibrary'\nimport {Modal} from 'newLibrary'",
+      code: "import {Button, EntityContext} from 'LibB';",
+      output: "import {Button} from 'new-libraries/components/complystation';\nimport {EntityContext} from 'new-libraries/components/appsettings';",
       errors: [{messageId: 'noOldLibs'}],
       options: options
     },
     {
-      code: "import {Button} from 'theOtherOldLibrary'",
-      output: "import {Button} from 'newLibrary'",
+      code: "import {Button, EntityContext} from 'LibB'\nimport {ModalB} from 'newLibrary'",
+      output: "import {Button} from 'new-libraries/components/complystation';\nimport {EntityContext} from 'new-libraries/components/appsettings';\nimport {ModalB} from 'newLibrary'",
       errors: [{messageId: 'noOldLibs'}],
       options: options
-    }
+    },
+    {
+      code: "import {Button, Stepper} from 'LibB'\nimport {ModalB} from 'newLibrary';",
+      output: "import {Button, Stepper} from 'new-libraries/components/complystation';\nimport {ModalB} from 'newLibrary';",
+      errors: [{messageId: 'noOldLibs'}],
+      options: options
+    },
   ],
 })
-
-// import { Button, Stepper } from 'common-libraries/components/complystation';
-// import { EntityContext, DetailContext } from 'common-libraries/components/appsettings';
-// import { Popover, Badge } from 'common-libraries/components/mui';
-
-// import { RemoveIcon, Typography } from 'common-libraries/styles';
-// import { GeneralHelper, useList } from 'common-libraries/system';
